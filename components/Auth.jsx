@@ -30,8 +30,17 @@ const Auth = () => {
             });
     };
     return (
-        <Box position={"fixed"} top="5%" right="5%">
-            <Button onClick={() => toggleColorMode()}>
+        <Box display="flex" alignItems="center" justifyContent="space-between" >
+           <Box>
+           <Link href="/">List All To Dos</Link>
+           </Box>
+           <Box>
+                <Link href="/add-todo">Add To Do</Link>
+           </Box>
+           <Box>
+           <Link href="/shoppingList">Shopping List</Link>
+           </Box>
+            <Box textAlign="right"><Button onClick={() => toggleColorMode()}>
                 {colorMode == "dark" ? <FaSun /> : <FaMoon />}
             </Button>{" "}
             {isLoggedIn && (
@@ -47,6 +56,7 @@ const Auth = () => {
                     Login with Google
                 </Button>
             )}
+            </Box>
         </Box>
     );
 };
