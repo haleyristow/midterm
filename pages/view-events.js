@@ -1,11 +1,11 @@
 import { Container } from "@chakra-ui/react";
-import AddShoppingList from "../components/AddShoppingList";
 import Auth from "../components/Auth";
-export default function shoppingList() {
+import EventList from "../components/EventList";
+export default function Home() {
     return (
         <Container maxW="7xl">
             <Auth />
-            <AddShoppingList />
+            <EventList />
         </Container>
     );
 }

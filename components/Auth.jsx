@@ -31,31 +31,40 @@ const Auth = () => {
     };
     return (
         <Box display="flex" alignItems="center" justifyContent="space-between" >
-           <Box>
-           <Link href="/">List All To Dos</Link>
-           </Box>
-           <Box>
+            <Box>
+                <Link href="/">List All To Dos</Link>
+            </Box>
+            <Box>
                 <Link href="/add-todo">Add To Do</Link>
-           </Box>
-           <Box>
-           <Link href="/shoppingList">Shopping List</Link>
-           </Box>
+            </Box>
+            <Box>
+                <Link href="/add-event">Add an Event</Link>
+            </Box>
+            <Box>
+                <Link href="/view-events">View Events</Link>
+            </Box>
+            <Box>
+                <Link href="/add-contact">Add Contact</Link>
+            </Box>
+            <Box>
+                <Link href="/view-contacts">View Contacts</Link>
+            </Box>
             <Box textAlign="right"><Button onClick={() => toggleColorMode()}>
                 {colorMode == "dark" ? <FaSun /> : <FaMoon />}
             </Button>{" "}
-            {isLoggedIn && (
-                <>
-                    <Text color="green.500">{user.email}</Text>
-                    <Link color="red.500" onClick={() => auth.signOut()}>
-                        Logout
-                    </Link>
-                </>
-            )}
-            {!isLoggedIn && (
-                <Button leftIcon={<FaGoogle />} onClick={() => handleAuth()}>
-                    Login with Google
-                </Button>
-            )}
+                {isLoggedIn && (
+                    <>
+                        <Text color="green.500">{user.email}</Text>
+                        <Link color="red.500" onClick={() => auth.signOut()}>
+                            Logout
+                        </Link>
+                    </>
+                )}
+                {!isLoggedIn && (
+                    <Button leftIcon={<FaGoogle />} onClick={() => handleAuth()}>
+                        Login with Google
+                    </Button>
+                )}
             </Box>
         </Box>
     );

@@ -11,40 +11,40 @@ import useAuth from "../hooks/useAuth";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import { FaToggleOff, FaToggleOn, FaTrash } from "react-icons/fa";
-import { deleteShoppingListItem, toggleShoppingListItemStatus } from "../api/shoppingList";
-import AddShoppingList from "./AddShoppingList";
-const ShoppingList = () => {
-    const [todos, setShoppingList] = React.useState([]);
+import { deleteEventListItem, toggleEventListItemStatus } from "../api/event";
+
+const EventList = () => {
+    const [todos, setEventList] = React.useState([]);
     const { user } = useAuth();
     const toast = useToast();
     const refreshData = () => {
         if (!user) {
-            setShoppingList([]);
+            setEventList([]);
             return;
         }
-        const q = query(collection(db, "shoppingList"), where("user", "==", user.uid));
+        const q = query(collection(db, "EventList"), where("user", "==", user.uid));
         onSnapshot(q, (querySnapchot) => {
             let ar = [];
             querySnapchot.docs.forEach((doc) => {
                 ar.push({ id: doc.id, ...doc.data() });
             });
-            setShoppingList(ar);
+            setEventList(ar);
         });
     };
     useEffect(() => {
         refreshData();
     }, [user]);
-    const handleShoppingListItemDelete = async (id) => {
-        if (confirm("Are you sure you wanna delete this todo?")) {
-            deleteShoppingListItem(id);
-            toast({ title: "Todo deleted successfully", status: "success" });
+    const handleEventListItemDelete = async (id) => {
+        if (confirm("Are you sure you wanna delete this event?")) {
+            deleteEventListItem(id);
+            toast({ title: "Event deleted successfully", status: "success" });
         }
     };
     const handleToggle = async (id, status) => {
         const newStatus = status == "completed" ? "pending" : "completed";
-        await toggleShoppingListItemStatus({ docId: id, status: newStatus });
+        await toggleEventListItemStatus({ docId: id, status: newStatus });
         toast({
-            title: `Todo marked ${newStatus}`,
+            title: `Event status marked ${newStatus}`,
             status: newStatus == "completed" ? "success" : "warning",
         });
     };
@@ -72,7 +72,7 @@ const ShoppingList = () => {
                                     }}
                                     float="right"
                                     size="xs"
-                                    onClick={() => handleShoppingListItemDelete(todo.id)}
+                                    onClick={() => handleEventListItemDelete(todo.id)}
                                 >
                                     <FaTrash />
                                 </Badge>
@@ -105,4 +105,4 @@ const ShoppingList = () => {
         </Box>
     );
 };
-export default ShoppingList;
+export default EventList;

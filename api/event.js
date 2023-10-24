@@ -6,9 +6,9 @@ import {
     doc,
     deleteDoc,
 } from "firebase/firestore";
-const shoppingListItem = async ({ userId, title, description, status }) => {
+const eventListItem = async ({ userId, title, description, status }) => {
     try {
-        await addDoc(collection(db, "shoppingList"), {
+        await addDoc(collection(db, "EventList"), {
             user: userId,
             title: title,
             description: description,
@@ -17,9 +17,9 @@ const shoppingListItem = async ({ userId, title, description, status }) => {
         });
     } catch (err) { }
 };
-const toggleShoppingListItemStatus = async ({ docId, status }) => {
+const toggleEventListItemStatus = async ({ docId, status }) => {
     try {
-        const todoRef = doc(db, "shoppingList", docId);
+        const todoRef = doc(db, "EventList", docId);
         await updateDoc(todoRef, {
             status,
         });
@@ -27,12 +27,12 @@ const toggleShoppingListItemStatus = async ({ docId, status }) => {
         console.log(err);
     }
 };
-const deleteShoppingListItem = async (docId) => {
+const deleteEventListItem = async (docId) => {
     try {
-        const todoRef = doc(db, "shoppingList", docId);
+        const todoRef = doc(db, "EventList", docId);
         await deleteDoc(todoRef);
     } catch (err) {
         console.log(err);
     }
 };
-export { shoppingListItem, toggleShoppingListItemStatus, deleteShoppingListItem };
+export { eventListItem, toggleEventListItemStatus, deleteEventListItem };
