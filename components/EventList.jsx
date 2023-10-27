@@ -14,7 +14,7 @@ import { FaToggleOff, FaToggleOn, FaTrash } from "react-icons/fa";
 import { deleteEventListItem, toggleEventListItemStatus } from "../api/event";
 
 const EventList = () => {
-    const [todos, setEventList] = React.useState([]);
+    const [events, setEventList] = React.useState([]);
     const { user } = useAuth();
     const toast = useToast();
     const refreshData = () => {
@@ -51,9 +51,10 @@ const EventList = () => {
     return (
         <Box mt={5}>
             <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
-                {todos &&
-                    todos.map((todo) => (
+                {events &&
+                    events.map((event) => (
                         <Box
+                            key={event.userId}
                             p={3}
                             boxShadow="2xl"
                             shadow={"dark-lg"}
@@ -61,7 +62,7 @@ const EventList = () => {
                             _hover={{ boxShadow: "sm" }}
                         >
                             <Heading as="h3" fontSize={"xl"}>
-                                {todo.title}{" "}
+                                {event.title}{" "}
                                 <Badge
                                     color="red.500"
                                     bg="inherit"
@@ -72,12 +73,12 @@ const EventList = () => {
                                     }}
                                     float="right"
                                     size="xs"
-                                    onClick={() => handleEventListItemDelete(todo.id)}
+                                    onClick={() => handleEventListItemDelete(event.id)}
                                 >
                                     <FaTrash />
                                 </Badge>
                                 <Badge
-                                    color={todo.status == "pending" ? "gray.500" : "green.500"}
+                                    color={event.status == "pending" ? "gray.500" : "green.500"}
                                     bg="inherit"
                                     transition={"0.2s"}
                                     _hover={{
@@ -86,19 +87,19 @@ const EventList = () => {
                                     }}
                                     float="right"
                                     size="xs"
-                                    onClick={() => handleToggle(todo.id, todo.status)}
+                                    onClick={() => handleToggle(event.id, event.status)}
                                 >
-                                    {todo.status == "pending" ? <FaToggleOff /> : <FaToggleOn />}
+                                    {event.status == "pending" ? <FaToggleOff /> : <FaToggleOn />}
                                 </Badge>
                                 <Badge
                                     float="right"
                                     opacity="0.8"
-                                    bg={todo.status == "pending" ? "yellow.500" : "green.500"}
+                                    bg={event.status == "pending" ? "yellow.500" : "green.500"}
                                 >
-                                    {todo.status}
+                                    {event.status}
                                 </Badge>
                             </Heading>
-                            <Text>{todo.description}</Text>
+                            <Text>{event.description}</Text>
                         </Box>
                     ))}
             </SimpleGrid>
